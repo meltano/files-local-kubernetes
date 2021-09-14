@@ -22,8 +22,32 @@ If you have deployed applications before, you may already have many of these too
 For Airflow to run on Kubernetes with a Postgres backend database, add both `psycopg2` and the `kubernetes` option to your Airflow pip URL:
 
 ```yaml
+orchestrators:
 - name: airflow
     pip_url: psycopg2 apache-airflow[kubernetes]==2.1.2 --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.1.2/constraints-${MELTANO__PYTHON_VERSION}.txt
+```
+
+There are also some Airflow config required (in future this will be moved to ENV vars directly in Terraform):
+
+```yaml
+orchestrators:
+- name: airflow
+pip_url: psycopg2 apache-airflow[kubernetes]==2.1.2 --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.1.2/constraints-${MELTANO__PYTHON_VERSION}.txt
+config:
+  webserver:
+    rbac: false
+    expose_config: true
+    authenticate: false
+    base_url: /airflow
+  core:
+    executor: KubernetesExecutor
+  kubernetes:
+    delete_worker_pods: false
+    namespace: meltano
+    worker_container_repository: registry:5000/meltano
+    worker_container_tag: latest
+    in_cluster: true
+    pod_template_file: /project/.meltano/run/airflow/pod-template-file.yml
 ```
 
 1. Deploy Meltano
