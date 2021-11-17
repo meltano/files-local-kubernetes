@@ -7,21 +7,23 @@ setup(
     packages=find_packages(),
     package_data={
         "bundle": [
-            'infrastructure/local/outputs.tf',
-            'infrastructure/local/main.tf',
+            'infrastructure/local/.dockerignore',
+            'infrastructure/local/.gitignore',
             'infrastructure/local/Dockerfile',
-            'infrastructure/local/kind_cluster.tf',
-            'infrastructure/local/postgres.tf',
-            'infrastructure/local/dev_images.tf',
-            'infrastructure/local/providers.tf',
             'infrastructure/local/README.md',
-            'infrastructure/local/variables.tf',
-            'infrastructure/local/files',
             'infrastructure/local/airflow.tf',
+            'infrastructure/local/dev_images.tf',
+            'infrastructure/local/kind_cluster.tf',
+            'infrastructure/local/files',
             'infrastructure/local/files/nginx_ingress_controller_manifest.yaml',
             'infrastructure/local/files/pod-template-file.yml',
             'infrastructure/local/files/webserver_config.py',
             'infrastructure/local/files/nfs-server-provider-values.yml'
+            'infrastructure/local/main.tf',
+            'infrastructure/local/outputs.tf',
+            'infrastructure/local/postgres.tf',
+            'infrastructure/local/providers.tf',
+            'infrastructure/local/variables.tf',
         ]
     },
 )
